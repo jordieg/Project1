@@ -3,14 +3,31 @@ import filecmp
 from dateutil.relativedelta import *
 from datetime import date
 
-
-def getData(file):
-# get a list of dictionary objects from the file
 #Input: file name
-#Ouput: return a list of dictionary objects where
-#the keys are from the first row in the data. and the values are each of the other rows
+def getData(file):
+	# get a list of dictionary objects from the file
+	inFile = open(file, 'r')
+	lines = inFile.readlines()
+	inFile.close()
 
-	pass
+	dictList = []
+
+	for line in lines:
+
+		dataDict = {}
+
+		# split at first ,
+		values = line.split(",", 1)
+		firstRow = values[0]
+		otherRow = values[1]
+
+		# set up dictionart
+		dataDict[firstRow] = otherRow
+		dictList.append(dataDict)
+
+	#Ouput: return a list of dictionary objects where
+	return dictList
+
 
 def mySort(data,col):
 # Sort based on key/column
@@ -64,10 +81,10 @@ def findAge(a):
 def test(got, expected, pts):
   score = 0;
   if got == expected:
-    score = pts
-    print(" OK ", end=" ")
+	score = pts
+	print(" OK ", end=" ")
   else:
-    print (" XX ", end=" ")
+	print (" XX ", end=" ")
   print("Got: ",got, "Expected: ",expected)
   return score
 
@@ -114,4 +131,4 @@ def main():
 
 # Standard boilerplate to call the main() function that tests all your code
 if __name__ == '__main__':
-    main()
+	main()
