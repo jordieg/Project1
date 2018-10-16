@@ -17,12 +17,19 @@ def getData(file):
 		dataDict = {}
 
 		# split at first ,
-		values = line.split(",", 1)
-		firstRow = values[0]
-		otherRow = values[1]
+		values = line.split(",")
+		firstName = values[0]
+		lastName = values[1]
+		email = values[2]
+		year = values[3]
+		birth = valies[4]
 
 		# set up dictionart
-		dataDict[firstRow] = otherRow
+		dataDict["First"] = firstName
+		dataDict["Last"] = lastName
+		dataDict["Email"] = email
+		dataDict["Class"] = year
+		dataDict["DOB"] = birth
 		dictList.append(dataDict)
 
 	#Ouput: return a list of dictionary objects where
