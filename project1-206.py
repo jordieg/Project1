@@ -3,6 +3,7 @@ import filecmp
 from dateutil.relativedelta import *
 from datetime import date
 
+
 #Input: file name
 def getData(file):
 	# get a list of dictionary objects from the file
@@ -22,7 +23,7 @@ def getData(file):
 		lastName = values[1]
 		email = values[2]
 		year = values[3]
-		birth = valies[4]
+		birth = values[4]
 
 		# set up dictionart
 		dataDict["First"] = firstName
@@ -36,12 +37,15 @@ def getData(file):
 	return dictList
 
 
-def mySort(data,col):
-# Sort based on key/column
 #Input: list of dictionaries and col (key) to sort on
-#Output: Return the first item in the sorted list as a string of just: firstName lastName
-
-	pass
+def mySort(data,col):
+	# Sort based on key/column
+	sortedList = sorted(data, key=lambda k: int(k[col]), reverse = False)
+	
+	#Output: Return the first item in the sorted list as a string of just: firstName lastName
+	retourner = sortedList[0]
+	name = retourner['First'] + " " + retourner['Last']
+	return name
 
 
 def classSizes(data):
@@ -50,6 +54,11 @@ def classSizes(data):
 # Output: Return a list of tuples sorted by the number of students in that class in
 # descending order
 # [('Senior', 26), ('Junior', 25), ('Freshman', 21), ('Sophomore', 18)]
+
+
+#iterate through the lists of dictionaries
+# count for fresh, sop, jun, sen, 
+# how to make a tuple
 
 	pass
 
@@ -88,10 +97,10 @@ def findAge(a):
 def test(got, expected, pts):
   score = 0;
   if got == expected:
-	score = pts
-	print(" OK ", end=" ")
+  	score = pts
+  	print(" OK ", end=" ")
   else:
-	print (" XX ", end=" ")
+  	print (" XX ", end=" ")
   print("Got: ",got, "Expected: ",expected)
   return score
 
