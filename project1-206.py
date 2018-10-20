@@ -55,12 +55,24 @@ def classSizes(data):
 # descending order
 # [('Senior', 26), ('Junior', 25), ('Freshman', 21), ('Sophomore', 18)]
 
+	freshman_count = 0
+	sophomore_count = 0
+	junior_count = 0
+	senior_count = 0
 
-#iterate through the lists of dictionaries
-# count for fresh, sop, jun, sen, 
-# how to make a tuple
+	for dictionnaire in data:
+		if dictionnaire["Class"] == 'Freshman':
+			freshman_count += 1
+		if dictionnaire["Class"] == 'Sophomore':
+			sophomore_count += 1
+		if dictionnaire["Class"] == 'Junior':
+			junior_count += 1
+		if dictionnaire["Class"] == 'Senior':
+			senior_count += 1
 
-	pass
+	tup = [('Senior', senior_count), ('Junior', junior_count), ('Sophomore', sophomore_count), ('Freshman', freshman_count)]
+	sortedTup = sorted(tup, key=lambda k: tup[1], reverse = False)
+	return sortedTup
 
 
 def findMonth(a):
@@ -68,7 +80,30 @@ def findMonth(a):
 # Input: list of dictionaries
 # Output: Return the month (1-12) that had the most births in the data
 
-	pass
+	month_count = {
+		1: 0,
+		2: 0,
+		3: 0,
+		4: 0,
+		5: 0,
+		6: 0,
+		7: 0,
+		8: 0,
+		9: 0,
+		10: 0,
+		11: 0,
+		12: 0
+	}
+
+	for dictionnaire in a:
+		birth = dictionnaire['DOB']
+		values = birth.split("/")
+		month = values[0]
+		if month in month_count:
+			month_count[month] = month_count[month] + 1
+
+	max_month = max(month_count, key=lambda k: month_count[k])
+	return max_month
 
 def mySortPrint(a,col,fileName):
 #Similar to mySort, but instead of returning single
