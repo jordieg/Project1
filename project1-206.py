@@ -1,7 +1,7 @@
 import os
 import filecmp
 from dateutil.relativedelta import *
-from datetime import date
+import datetime
 
 
 #Input: file name
@@ -38,9 +38,9 @@ def getData(file):
 
 
 #Input: list of dictionaries and col (key) to sort on
-def mySort(data,col):
+def mySort(data, col):
 	# Sort based on key/column
-	sortedList = sorted(data, key=lambda k: int(k[col]), reverse = False)
+	sortedList = sorted(data, key=lambda k: k[col], reverse = False)
 	
 	#Output: Return the first item in the sorted list as a string of just: firstName lastName
 	retourner = sortedList[0]
@@ -71,7 +71,7 @@ def classSizes(data):
 			senior_count += 1
 
 	tup = [('Senior', senior_count), ('Junior', junior_count), ('Sophomore', sophomore_count), ('Freshman', freshman_count)]
-	sortedTup = sorted(tup, key=lambda k: tup[1], reverse = False)
+	sortedTup = sorted(tup, key=lambda k: k[1], reverse = True)
 	return sortedTup
 
 
@@ -81,18 +81,18 @@ def findMonth(a):
 # Output: Return the month (1-12) that had the most births in the data
 
 	month_count = {
-		1: 0,
-		2: 0,
-		3: 0,
-		4: 0,
-		5: 0,
-		6: 0,
-		7: 0,
-		8: 0,
-		9: 0,
-		10: 0,
-		11: 0,
-		12: 0
+		'1': 0,
+		'2': 0,
+		'3': 0,
+		'4': 0,
+		'5': 0,
+		'6': 0,
+		'7': 0,
+		'8': 0,
+		'9': 0,
+		'10': 0,
+		'11': 0,
+		'12': 0
 	}
 
 	for dictionnaire in a:
@@ -102,26 +102,53 @@ def findMonth(a):
 		if month in month_count:
 			month_count[month] = month_count[month] + 1
 
-	max_month = max(month_count, key=lambda k: month_count[k])
+	max_month = max(month_count, key=lambda k: month_count[k]) #should it be 1?
 	return max_month
 
-def mySortPrint(a,col,fileName):
+def mySortPrint(a, col, fileName):
 #Similar to mySort, but instead of returning single
 #Student, the sorted data is saved to a csv file.
 # as fist,last,email
 #Input: list of dictionaries, col (key) to sort by and output file name
 #Output: No return value, but the file is written
+	outFile = open(fileName, 'w')
 
-	pass
+	sortedList = sorted(a, key=lambda k: k[col], reverse = False)
+	for item in sortedList:
+		outFile.write(item["First"] + ", " + item["Last"] + ", " + item["Email"])
+	outFile.close()
+
 
 def findAge(a):
-# def findAge(a):
 # Input: list of dictionaries
 # Output: Return the average age of the students and round that age to the nearest
 # integer.  You will need to work with the DOB and the current date to find the current
 # age in years.
+	age_list = []
+	current = datetime.datetime.now()
 
-	pass
+	for dictionnaire in a:
+		print(dictionnaire)
+		birth = dictionnaire['DOB']
+		values = birth.split('/')
+		for value in values:
+			print("Printing values:")
+			print(value)
+		month = values[0]
+		day = values[1]
+		year = values[2]
+
+		birthdate = datetime.date(int(year), int(month), int(day))
+		age = relativedelta(current, birthdate).years
+		age_list.append(age)
+
+	total = 0
+	for item in age_list:
+		total += age_list[item]
+
+	average = total/len(age_list)
+	return average
+
 
 
 ################################################################
