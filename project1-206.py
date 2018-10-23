@@ -103,7 +103,7 @@ def findMonth(a):
 			month_count[month] = month_count[month] + 1
 
 	max_month = max(month_count, key=lambda k: month_count[k]) #should it be 1?
-	return max_month
+	return int(max_month)
 
 def mySortPrint(a, col, fileName):
 #Similar to mySort, but instead of returning single
@@ -115,7 +115,8 @@ def mySortPrint(a, col, fileName):
 
 	sortedList = sorted(a, key=lambda k: k[col], reverse = False)
 	for item in sortedList:
-		outFile.write(item["First"] + ", " + item["Last"] + ", " + item["Email"])
+		if item["Email"] != "Email":
+			outFile.write(item["First"] + "," + item["Last"] + "," + item["Email"] + "\n")
 	outFile.close()
 
 
@@ -128,27 +129,25 @@ def findAge(a):
 	current = datetime.datetime.now()
 
 	for dictionnaire in a:
-		print(dictionnaire)
-		birth = dictionnaire['DOB']
-		values = birth.split('/')
-		for value in values:
-			print("Printing values:")
-			print(value)
-		month = values[0]
-		day = values[1]
-		year = values[2]
+		if dictionnaire["DOB"] != 'DOB\n':
+			birth = dictionnaire['DOB']
+			values = birth.split('/')
+			month = values[0]
+			day = values[1]
+			year = values[2]
 
-		birthdate = datetime.date(int(year), int(month), int(day))
-		age = relativedelta(current, birthdate).years
-		age_list.append(age)
+			birthdate = datetime.date(int(year), int(month), int(day))
+			age = relativedelta(current, birthdate).years
+			age_list.append(age)
 
 	total = 0
 	for item in age_list:
 		total += age_list[item]
 
-	average = total/len(age_list)
-	return average
+	average = total/(len(age_list))
+	return int(average)
 
+	
 
 
 ################################################################
